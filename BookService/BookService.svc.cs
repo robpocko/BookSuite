@@ -18,13 +18,15 @@ namespace BookService
             }
         }
 
-        public Book GetBookById(int id)
+        public Book GetBookById(string id)
         {
             try
             {
+                int bookId = Convert.ToInt32(id);
+
                 using (BookContext context = new BookContext())
                 {
-                    return context.Books.SingleOrDefault(book => book.ID == id);
+                    return context.Books.SingleOrDefault(book => book.ID == bookId);
                 }
             }
             catch
@@ -43,13 +45,15 @@ namespace BookService
             }
         }
 
-        public void UpdateBook(int id, string title)
+        public void UpdateBook(string id, string title)
         {
             try
             {
+                int bookId = Convert.ToInt32(id);
+
                 using (BookContext context = new BookContext())
                 {
-                    Book book = context.Books.SingleOrDefault(b => b.ID == id);
+                    Book book = context.Books.SingleOrDefault(b => b.ID == bookId);
                     book.BookTitle = title;
                     context.SaveChanges();
                 }
@@ -60,13 +64,15 @@ namespace BookService
             }
         }
 
-        public void DeleteBook(int id)
+        public void DeleteBook(string id)
         {
             try
             {
+                int bookId = Convert.ToInt32(id);
+
                 using (BookContext context = new BookContext())
                 {
-                    Book book = context.Books.SingleOrDefault(b => b.ID == id);
+                    Book book = context.Books.SingleOrDefault(b => b.ID == bookId);
                     context.Books.Remove(book);
                     context.SaveChanges();
                 }
@@ -77,9 +83,9 @@ namespace BookService
             }
         }
 
-        public string TestMe()
-        {
-            return string.Format("BookService called at {0}", DateTime.Now.ToString("dd MMM yyyy HH:mm"));
-        }
+        //public string TestMe()
+        //{
+        //    return string.Format("BookService called at {0}", DateTime.Now.ToString("dd MMM yyyy HH:mm"));
+        //}
     }
 }
